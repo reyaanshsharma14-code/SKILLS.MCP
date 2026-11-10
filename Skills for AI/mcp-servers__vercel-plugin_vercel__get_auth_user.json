@@ -1,0 +1,1 @@
+{"name":"get_auth_user","description":"Retrieves information related to the currently authenticated User.\n\nCLI fallback on MCP failure (partial): vercel api /v2/user --method GET. Fill placeholders from inputs.","parameters":{"$schema":"https://json-schema.org/draft/2020-12/schema","properties":{},"type":"object"}}

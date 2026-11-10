@@ -1,0 +1,1 @@
+{"name":"get_git_deployment_context","description":"Lists the user's Vercel teams with each team's plan, connected Cursor Origin workspaces, and linked Git projects.","parameters":{"$schema":"https://json-schema.org/draft/2020-12/schema","properties":{},"type":"object"}}

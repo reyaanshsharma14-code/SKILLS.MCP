@@ -1,0 +1,13 @@
+{
+    "mcpServers":  {
+                       "21st":  {
+                                    "headers":  {
+                                                    "x-api-key":  "21st_sk_16636c16c1adf258d6effbc774b82129e69e54f9e9b706cc0f6da2e6b589651e"
+                                                },
+                                    "url":  "https://21st.dev/api/mcp"
+                                },
+                       "figma":  {
+                                     "url":  "https://mcp.figma.com/mcp"
+                                 }
+                   }
+}

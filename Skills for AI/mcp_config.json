@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "21st": {
+      "url": "https://21st.dev/api/mcp",
+      "headers": {
+        "x-api-key": "21st_sk_16636c16c1adf258d6effbc774b82129e69e54f9e9b706cc0f6da2e6b589651e"
+      }
+    },
+    "figma": {
+      "url": "https://mcp.figma.com/mcp",
+      "serverUrl": "https://mcp.figma.com/mcp",
+      "headers": {
+        "X-Figma-Plugin-Bundle": "figma_prod@2_2_174"
+      }
+    },
+    "canva": {
+      "url": "https://mcp.canva.com/mcp",
+      "serverUrl": "https://mcp.canva.com/mcp"
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "serverUrl": "https://mcp.context7.com/mcp"
+    },
+    "vercel": {
+      "url": "https://mcp.vercel.com",
+      "serverUrl": "https://mcp.vercel.com"
+    },
+    "biomolecular_structure_viewer_mcp": {
+      "command": "agy-node",
+      "args": [
+        "sidecars/biomolecular_structure_viewer/dist/mcp_entry.cjs"
+      ]
+    }
+  }
+}

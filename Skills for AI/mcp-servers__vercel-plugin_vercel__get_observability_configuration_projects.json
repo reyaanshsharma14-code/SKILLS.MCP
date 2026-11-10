@@ -1,0 +1,1 @@
+{"name":"get_observability_configuration_projects","description":"Lists the projects that are currently configured as disabled for Observability Plus on a team.\n\nCLI fallback on MCP failure (partial): vercel api /v1/observability/manage/configuration/projects --method GET. Fill placeholders from inputs.","parameters":null}

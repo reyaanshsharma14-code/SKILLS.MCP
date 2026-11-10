@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kharka Trekking — Small-Group Himalayan Expeditions</title>
+  <meta name="description" content="Small-group Himalayan treks across Langtang, Annapurna Sanctuary, and Gokyo Lakes, mapped on real SRTM satellite elevation terrain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="/assets/main-EwqnmQky.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/style-B6Tcu_hK.js">
+  <link rel="modulepreload" crossorigin href="/assets/data-BOrmzx4T.js">
+  <link rel="stylesheet" crossorigin href="/assets/style-ChhLX2H6.css">
+</head>
+<body>
+  <a class="skip" href="#book">Skip to booking</a>
+  <div id="progress" aria-hidden="true"></div>
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div id="labels" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Kharka Trekking, home">
+      <svg width="26" height="20" viewBox="0 0 26 20" aria-hidden="true"><path d="M1 19 9 5l4 6 3-4 9 12Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span>Kharka</span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="#treks">3D Atlas</a>
+      <a href="/routes.html">Routes &amp; Itineraries</a>
+      <a href="/dispatch.html">Reviews &amp; Dispatches</a>
+      <a href="/safety-gear.html" class="hide-sm">Safety &amp; Pack</a>
+      <a href="#book" class="nav-cta">Hold a place</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-layout">
+        <div class="hero-copy">
+          <p class="mono eyebrow">Kathmandu · 27°42′N 85°19′E · Small-group Himalayan treks</p>
+          <h1>Walk to the <em>edge</em> of the&nbsp;map</h1>
+          <p class="lede">Twelve trekkers at most. One licensed local guide for every three guests. Rendered below on real NASA/SRTM satellite elevation data of the Nepal Himalaya.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#treks">Explore 3D routes</a>
+            <a class="btn btn-ghost" href="/routes.html">Compare all 3 itineraries</a>
+          </div>
+        </div>
+
+        <aside class="hud mono" aria-label="Satellite terrain controls">
+          <div class="hud-head">
+            <span class="dot"></span>
+            <span id="hud-dem">SRTM DEM · Langtang Lirung (7,227 m)</span>
+          </div>
+          <p class="hud-coords" id="hud-gps">28°13′N 85°32′E · Real satellite elevation mesh</p>
+          <div class="hud-group" role="group" aria-label="Mountain lighting">
+            <span class="hud-label">Atmosphere</span>
+            <div class="hud-pills">
+              <button type="button" class="pill-btn" data-light="dawn" aria-pressed="true">Dawn</button>
+              <button type="button" class="pill-btn" data-light="noon" aria-pressed="false">Noon</button>
+              <button type="button" class="pill-btn" data-light="starlight" aria-pressed="false">Starlight</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <dl class="hero-strip mono">
+        <div><dt>Max group size</dt><dd><span data-count="12">12</span> trekkers</dd></div>
+        <div><dt>Guide-to-guest ratio</dt><dd>1 : 3</dd></div>
+        <div><dt>Porter load cap</dt><dd>20 kg max</dd></div>
+        <div><dt>Summit &amp; pass completion</dt><dd><span data-count="94">94</span>% vs 78% industry</dd></div>
+      </dl>
+    </section>
+
+    <section class="treks" id="treks" aria-labelledby="treks-h">
+      <div class="wrap treks-grid">
+        <div class="treks-list">
+          <p class="mono eyebrow">Three real Himalayan massifs</p>
+          <h2 id="treks-h">Switch route to morph the satellite&nbsp;terrain</h2>
+          <p class="sub-lede">Each route loads its real SRTM satellite elevation grid in 3D behind you and plots the five key sleeping altitudes.</p>
+          <div class="rows" id="rows" role="group" aria-label="Trek routes"></div>
+          <div class="treks-links mono">
+            <a href="/routes.html">View full day-by-day tables &amp; permit breakdown &rarr;</a>
+          </div>
+        </div>
+        <aside class="detail" aria-live="polite">
+          <div class="detail-photo-wrap">
+            <img id="d-photo" src="/photos/langtang-valley.jpg" alt="Langtang Himal snow peaks rising above Kyanjin Ri" width="640" height="360" loading="lazy" />
+            <span class="mono detail-badge" id="d-summit">Summit · Langtang Lirung 7,227 m</span>
+          </div>
+          <p class="mono eyebrow" id="d-region"></p>
+          <h3 id="d-name"></h3>
+          <p class="detail-summary" id="d-summary"></p>
+          <svg id="profile" viewBox="0 0 520 190" role="img" aria-labelledby="profile-t"><title id="profile-t">Elevation profile</title></svg>
+          <ul class="facts mono" id="d-facts"></ul>
+          <div class="detail-actions">
+            <a class="btn btn-primary" id="d-book" href="#book">Hold a place on this trek</a>
+            <a class="btn btn-outline-ink" href="/routes.html">Full itinerary</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="story" id="route" aria-label="Day by day on the selected trek">
+      <div class="story-sticky">
+        <div class="story-panel">
+          <p class="mono eyebrow"><span id="s-trek"></span></p>
+          <p class="mono stage-count"><span id="s-idx">01</span><span class="dim"> / 05</span></p>
+          <h2 id="s-title"></h2>
+          <p class="mono alt"><span id="s-alt"></span> m sleeping / stage altitude</p>
+          <p id="s-text" aria-live="polite"></p>
+        </div>
+        <div class="live mono" aria-hidden="true">
+          <span>Trail Altimeter</span>
+          <b><span id="s-live">0</span><small> m</small></b>
+          <span><span id="s-pct">0</span>% of route walked</span>
+        </div>
+        <div class="story-rail" aria-hidden="true"><i id="s-bar"></i></div>
+        <p class="scroll-hint mono" id="s-hint">Scroll to fly the satellite trail</p>
+      </div>
+    </section>
+
+    <section class="field-photos paper" id="field" aria-labelledby="field-h">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="mono eyebrow">Real mountain photography</p>
+            <h2 id="field-h">Where the roads end and the stone steps&nbsp;begin</h2>
+          </div>
+          <a class="btn btn-outline-ink" href="/dispatch.html">All field dispatches &amp; photos</a>
+        </div>
+
+        <div class="photo-bento">
+          <article class="photo-card photo-hero reveal">
+            <img src="/photos/hero-machapuchare.jpg" alt="Machapuchare Fishtail peak rising 6,993 metres into clear blue Himalayan sky" width="1280" height="720" loading="lazy" />
+            <div class="photo-meta">
+              <span class="mono">28°29′N 83°56′E · Annapurna Sanctuary</span>
+              <h3>Machapuchare (6,993 m) from the Modi Khola approach</h3>
+            </div>
+          </article>
+          <article class="photo-card reveal">
+            <img src="/photos/gokyo-lake.jpg" alt="Turquoise Dudh Pokhari glacial lake at Gokyo village with snow peaks behind" width="800" height="533" loading="lazy" />
+            <div class="photo-meta">
+              <span class="mono">4,790 m · Khumbu</span>
+              <h3>Dudh Pokhari (Third Gokyo Lake) at first light</h3>
+            </div>
+          </article>
+          <article class="photo-card reveal">
+            <img src="/photos/langtang-valley.jpg" alt="Glaciated wall of Langtang Lirung viewed from Kyanjin Ri ridge" width="800" height="600" loading="lazy" />
+            <div class="photo-meta">
+              <span class="mono">4,773 m · Rasuwa</span>
+              <h3>Langtang Lirung icefall above Kyanjin Gompa</h3>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="season paper-2" id="season" aria-labelledby="season-h">
+      <div class="wrap">
+        <p class="mono eyebrow reveal">When to go</p>
+        <h2 id="season-h" class="reveal">Two clear weather windows between the monsoon and winter&nbsp;jet&nbsp;stream</h2>
+        <div class="cal reveal" id="calendar"></div>
+        <ul class="legend mono" aria-hidden="true">
+          <li><i class="cal-cell best"></i>Pre-monsoon &amp; post-monsoon prime</li><li><i class="cal-cell ok"></i>Shoulder window (colder nights)</li><li><i class="cal-cell off"></i>Monsoon rain or high-pass snow</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="quotes paper" id="reviews" aria-labelledby="quotes-h">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="mono eyebrow">Verified trekker dispatches · 4.96 / 5 across 142 trips</p>
+            <h2 id="quotes-h">Logged with altitude and pulse-oximeter&nbsp;readings</h2>
+          </div>
+          <a class="btn btn-outline-ink" href="/dispatch.html">Read all 6 field logs</a>
+        </div>
+        <div class="review-grid" id="home-reviews"></div>
+      </div>
+    </section>
+
+    <section class="guides paper-2" id="guides" aria-labelledby="guides-h">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="mono eyebrow">NMA &amp; WFR certified lead guides</p>
+            <h2 id="guides-h">The people who decide when you climb and when you turn&nbsp;back</h2>
+          </div>
+          <a class="btn btn-outline-ink" href="/safety-gear.html">Safety protocol &amp; pack calculator</a>
+        </div>
+        <div class="guide-list">
+          <article class="guide reveal">
+            <span class="mono">Lead guide · Langtang</span>
+            <h3>Pemba Lama</h3>
+            <p>Born in Syabrubesi. Rebuilt his family’s stone lodge after 2015 and leads every autumn departure in the valley he grew up in.</p>
+            <dl class="mono"><div><dt>Years</dt><dd>19</dd></div><div><dt>Trips led</dt><dd>212</dd></div><div><dt>Max alt</dt><dd>6,119 m</dd></div></dl>
+          </article>
+          <article class="guide reveal">
+            <span class="mono">Lead guide · Annapurna</span>
+            <h3>Sunita Gurung</h3>
+            <p>Wilderness First Responder instructor. Runs the pre-departure altitude briefing and carries the group’s pulse-oximeter and medical kit.</p>
+            <dl class="mono"><div><dt>Years</dt><dd>14</dd></div><div><dt>Trips led</dt><dd>168</dd></div><div><dt>Max alt</dt><dd>5,416 m</dd></div></dl>
+          </article>
+          <article class="guide reveal">
+            <span class="mono">Lead guide · Gokyo</span>
+            <h3>Dawa Sherpa</h3>
+            <p>Raised above Namche Bazaar. Has walked the Gokyo lakes in every month of the calendar and summited three 8,000-metre peaks.</p>
+            <dl class="mono"><div><dt>Years</dt><dd>22</dd></div><div><dt>Trips led</dt><dd>240</dd></div><div><dt>Max alt</dt><dd>8,091 m</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gear paper" id="gear" aria-labelledby="gear-h">
+      <div class="wrap gear-grid">
+        <div class="reveal">
+          <p class="mono eyebrow">Before you fly to Kathmandu</p>
+          <h2 id="gear-h">Pack light. Keep your duffel under&nbsp;15&nbsp;kg</h2>
+          <p>Your checklist saves in this browser. We supply four-season sleeping bags, down parkas on loan, medical oxygen, and a Garmin inReach satellite messenger. Need exact gram weights? Open the <a href="/safety-gear.html">interactive pack weight calculator</a>.</p>
+          <p class="mono gear-count" id="gear-count"></p>
+          <div class="gear-track" aria-hidden="true"><i id="gear-bar"></i></div>
+        </div>
+        <fieldset class="reveal">
+          <legend class="sr">Gear checklist</legend>
+          <label class="check"><input type="checkbox" id="g1"><span>Broken-in waterproof ankle boots</span></label>
+          <label class="check"><input type="checkbox" id="g2"><span>Down jacket rated to −15 °C</span></label>
+          <label class="check"><input type="checkbox" id="g3"><span>Three merino base layers (200 g/m²)</span></label>
+          <label class="check"><input type="checkbox" id="g4"><span>Silk or thermal sleeping bag liner</span></label>
+          <label class="check"><input type="checkbox" id="g5"><span>Headtorch (300+ lumens) + spare lithium cells</span></label>
+          <label class="check"><input type="checkbox" id="g6"><span>Telescopic trekking poles with snow baskets</span></label>
+          <label class="check"><input type="checkbox" id="g7"><span>Category 4 glacier sunglasses</span></label>
+          <label class="check"><input type="checkbox" id="g8"><span>Two 1 L wide-mouth Nalgene bottles + purification</span></label>
+        </fieldset>
+      </div>
+    </section>
+
+    <section class="why paper-2" id="why" aria-labelledby="why-h">
+      <div class="wrap why-grid">
+        <div class="reveal">
+          <p class="mono eyebrow">Why small</p>
+          <h2 id="why-h">Altitude punishes crowds. We cap every departure at&nbsp;twelve</h2>
+          <p>Twenty-person tour groups walk at the pace of the fastest ego and split up when someone gets a headache. Our 1:3 guide ratio means an assistant guide can walk down with an acclimatising trekker without ending anyone else’s trip.</p>
+        </div>
+        <dl class="specs reveal">
+          <div><dt>Acclimatisation nights</dt><dd>2–3<small>built into every itinerary above 3,400 m</small></dd></div>
+          <div><dt>Turn-back authority</dt><dd>Guide’s call<small>based on twice-daily SpO2 checks</small></dd></div>
+          <div><dt>Local crew</dt><dd>100%<small>Nepali guides &amp; porters paid above KPPA union rate</small></dd></div>
+          <div><dt>Porter loads</dt><dd>≤ 20 kg<small>weighed on a hanging scale at the trailhead</small></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="faq paper" id="faq" aria-labelledby="faq-h">
+      <div class="wrap faq-grid">
+        <h2 id="faq-h" class="reveal">Questions we answer every&nbsp;week</h2>
+        <div class="reveal">
+          <details><summary>How fit do I need to be?</summary><p>If you can hike 5–6 hours with a 6 kg daypack on consecutive weekends, you are ready for Langtang. Annapurna Sanctuary and Gokyo Ri reward eight weeks of stair or hill training before departure.</p></details>
+          <details><summary>What happens if my oxygen saturation drops?</summary><p>Guides log resting heart rate and SpO2 at breakfast and dinner above 3,000 m. If you show moderate AMS symptoms, we hold an extra acclimatisation night or descend immediately with a dedicated assistant guide.</p></details>
+          <details><summary>Can solo travellers join a group?</summary><p>Over half our bookings are solo trekkers. You share the trail with up to eleven others and have the option of your own private lodge room in lower villages.</p></details>
+          <details><summary>What is included in the trek fee?</summary><p>All TIMS and National Park permits, Kathmandu airport transfers, Lukla flights (for Gokyo), tea-house lodging, three hot meals + trail tea daily, licensed guides, insured porters, and emergency oxygen.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="book paper-2" id="book" aria-labelledby="book-h">
+      <div class="wrap book-grid">
+        <div class="reveal">
+          <p class="mono eyebrow">Hold a place · Spring &amp; Autumn 2027</p>
+          <h2 id="book-h">Tell us when. A lead guide replies within two working&nbsp;days</h2>
+          <p>No deposit to enquire. Pemba, Sunita, or Dawa will review your dates, fitness background, and route choice before you pay a rupee.</p>
+        </div>
+        <form id="form" class="reveal" novalidate>
+          <div class="field">
+            <label for="f-name">Full name</label>
+            <input id="f-name" name="name" autocomplete="name" required />
+            <p class="err" id="e-name" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="f-email">Email address</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required />
+            <p class="err" id="e-email" role="alert"></p>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-trek">Expedition route</label>
+              <select id="f-trek" name="trek"></select>
+            </div>
+            <div class="field">
+              <label for="f-size">Trekkers</label>
+              <input id="f-size" name="size" type="number" min="1" max="12" value="2" inputmode="numeric" />
+              <p class="err" id="e-size" role="alert"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-month">Preferred departure month</label>
+            <select id="f-month" name="month">
+              <option>March</option><option>April</option><option>May</option>
+              <option selected>October</option><option>November</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" type="submit">Send enquiry to lead guide</button>
+          <p class="ok" id="ok" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot paper-2">
+    <div class="wrap foot-grid">
+      <span class="mono">Kharka Trekking · Thamel, Kathmandu · Demo showcase</span>
+      <nav class="foot-links mono" aria-label="Footer">
+        <a href="/">3D Atlas</a>
+        <a href="/routes.html">Routes</a>
+        <a href="/dispatch.html">Dispatches</a>
+        <a href="/safety-gear.html">Safety &amp; Pack</a>
+      </nav>
+      <span class="mono">3D terrain: NASA SRTM / AWS Terrarium · Photos: Wikimedia Commons (CC BY-SA / CC BY / CC0)</span>
+    </div>
+  </footer>
+
+</body>
+</html>

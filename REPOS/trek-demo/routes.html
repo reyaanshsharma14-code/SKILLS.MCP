@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Routes &amp; Day-by-Day Itineraries — Kharka Trekking</title>
+  <meta name="description" content="Detailed day-by-day elevation profiles, permit requirements, and real Himalayan field photography for Langtang Valley, Annapurna Sanctuary, and Gokyo Lakes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="subpage">
+  <a class="skip" href="#main">Skip to route comparison</a>
+
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Kharka Trekking, home">
+      <svg width="26" height="20" viewBox="0 0 26 20" aria-hidden="true"><path d="M1 19 9 5l4 6 3-4 9 12Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span>Kharka</span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="/#treks">3D Atlas</a>
+      <a href="/routes.html" aria-current="page">Routes &amp; Itineraries</a>
+      <a href="/dispatch.html">Reviews &amp; Dispatches</a>
+      <a href="/safety-gear.html" class="hide-sm">Safety &amp; Pack</a>
+      <a href="/#book" class="nav-cta">Hold a place</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="mono eyebrow">01 / Field Dossiers · 2026 Departures</p>
+        <h1>Three valleys, mapped stage by <em>stage</em></h1>
+        <p class="lede">We operate only three routes across the Nepal Himalaya so our guides know every landslide bypass, teahouse stove, and helicopter landing zone by heart.</p>
+      </div>
+    </section>
+
+    <section class="section paper">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="mono">Side-by-side specification</p>
+          <h2>Compare all three expeditions</h2>
+        </div>
+
+        <div class="comp-table-wrap">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th scope="col">Expedition route</th>
+                <th scope="col">Code</th>
+                <th scope="col" class="num">Duration</th>
+                <th scope="col" class="num">Max altitude</th>
+                <th scope="col" class="num">Total distance</th>
+                <th scope="col">Reference peak</th>
+                <th scope="col">Grade</th>
+                <th scope="col" class="num">Tariff (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Langtang Valley &amp; Tserko Ri</strong></td>
+                <td class="mono">KTM-01</td>
+                <td class="num">10 days</td>
+                <td class="num">4,984 m</td>
+                <td class="num">78 km</td>
+                <td>Langtang Lirung (7,227 m)</td>
+                <td>Moderate · Grade II</td>
+                <td class="num">$1,890</td>
+              </tr>
+              <tr>
+                <td><strong>Annapurna Sanctuary</strong></td>
+                <td class="mono">PKR-02</td>
+                <td class="num">12 days</td>
+                <td class="num">4,130 m</td>
+                <td class="num">112 km</td>
+                <td>Machapuchare (6,993 m)</td>
+                <td>Sustained · Grade III</td>
+                <td class="num">$2,240</td>
+              </tr>
+              <tr>
+                <td><strong>Gokyo Lakes &amp; Gokyo Ri</strong></td>
+                <td class="mono">LUA-03</td>
+                <td class="num">14 days</td>
+                <td class="num">5,357 m</td>
+                <td class="num">96 km</td>
+                <td>Cho Oyu (8,188 m)</td>
+                <td>Strenuous · Grade IV</td>
+                <td class="num">$2,890</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="routes-container"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-inner">
+      <span class="mono">© 2026 Kharka Trekking Pvt. Ltd. · Reg. 142809/078 · Thamel, Kathmandu</span>
+      <div class="foot-links mono">
+        <a href="/">3D Atlas</a>
+        <a href="/dispatch.html">Dispatches</a>
+        <a href="/safety-gear.html">Safety &amp; Pack</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { treks } from '/src/data.js';
+
+    const container = document.getElementById('routes-container');
+    container.innerHTML = treks.map((t, idx) => `
+      <article class="route-block" id="${t.id}">
+        <div class="route-block-grid">
+          <div class="route-photos">
+            <img src="${t.photo}" alt="${t.photoAlt}" loading="${idx === 0 ? 'eager' : 'lazy'}" />
+            <img src="${t.photoSecondary}" alt="${t.name} secondary field view near ${t.summitName}" loading="lazy" />
+          </div>
+          <div>
+            <p class="mono" style="color:var(--rust);margin:0 0 0.5rem">${t.code} · ${t.region} · ${t.gps}</p>
+            <h2 style="margin-bottom:0.75rem">${t.name}</h2>
+            <p style="font-size:1.08rem;max-width:58ch;margin:0 0 1.5rem">${t.summary}</p>
+            <dl class="specs" style="border-color:rgba(14,21,18,0.2)">
+              <div><dt class="mono">Duration</dt><dd>${t.days} days</dd></div>
+              <div><dt class="mono">High point</dt><dd>${t.maxAlt.toLocaleString()} m</dd></div>
+              <div><dt class="mono">Distance</dt><dd>${t.distanceKm} km (${t.dailyHours})</dd></div>
+              <div><dt class="mono">Tariff</dt><dd>$${t.price.toLocaleString()}</dd></div>
+            </dl>
+            <p class="mono" style="margin:0 0 1.25rem;opacity:0.8">Permits included: ${t.permits} · Lead guide: ${t.leadGuide}</p>
+            <h3 style="font-size:1.35rem;margin-bottom:0.85rem">Key stage progression</h3>
+            <div class="comp-table-wrap" style="margin-top:0">
+              <table class="comp-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Stage</th>
+                    <th scope="col">Waypoint</th>
+                    <th scope="col" class="num">Sleeping / Peak Alt</th>
+                    <th scope="col">Field note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${t.stages.map(s => `
+                    <tr>
+                      <td class="mono">${s.day}</td>
+                      <td><strong>${s.place}</strong></td>
+                      <td class="num">${s.alt.toLocaleString()} m</td>
+                      <td>${s.note}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+            <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+              <a class="btn btn-primary" href="/#book">Reserve ${t.name}</a>
+              <a class="btn btn-ghost" style="border-color:var(--ink);color:var(--ink)" href="/#treks">Inspect on 3D SRTM terrain</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    `).join('');
+  </script>
+</body>
+</html>

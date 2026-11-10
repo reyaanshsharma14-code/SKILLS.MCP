@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Altitude Safety &amp; Porter Weight Calculator — Kharka Trekking</title>
+  <meta name="description" content="Altitude medicine protocols, twice-daily pulse-oximeter logging, NMA guide credentials, and an interactive 15.00 kg porter duffel weight calculator." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="subpage">
+  <a class="skip" href="#main">Skip to safety protocol</a>
+
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Kharka Trekking, home">
+      <svg width="26" height="20" viewBox="0 0 26 20" aria-hidden="true"><path d="M1 19 9 5l4 6 3-4 9 12Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span>Kharka</span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="/#treks">3D Atlas</a>
+      <a href="/routes.html">Routes &amp; Itineraries</a>
+      <a href="/dispatch.html">Reviews &amp; Dispatches</a>
+      <a href="/safety-gear.html" aria-current="page" class="hide-sm">Safety &amp; Pack</a>
+      <a href="/#book" class="nav-cta">Hold a place</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="mono eyebrow">03 / Medical Telemetry &amp; Load Discipline</p>
+        <h1>How we climb high and come home <em>whole</em></h1>
+        <p class="lede">Acclimatization is math, not bravado. Every departure carries a Garmin inReach satellite messenger, a portable hyperbaric bag on Gokyo, and strict luggage scale enforcement.</p>
+      </div>
+    </section>
+
+    <section class="section paper">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="mono">01 / Field Medicine Protocol</p>
+          <h2>Four non-negotiable rules above 3,000 m</h2>
+        </div>
+
+        <div class="guides" style="grid-template-columns:repeat(2, 1fr)">
+          <article class="guide">
+            <span class="mono" style="color:var(--rust)">Protocol A · Telemetry</span>
+            <h3>Twice-daily SpO₂ &amp; resting heart-rate logs</h3>
+            <p>At breakfast (06:30) and before soup (18:30), your lead guide records arterial oxygen saturation and resting pulse in the group ledger alongside the Lake Louise Acute Mountain Sickness score.</p>
+          </article>
+          <article class="guide">
+            <span class="mono" style="color:var(--rust)">Protocol B · Ceiling</span>
+            <h3>400 m sleeping elevation gain limit</h3>
+            <p>Above 3,000 m, our stage plans average under 400 m of net sleeping gain per night, paired with dedicated climb-high, sleep-low acclimatization afternoons at Kyanjin Gompa and Gokyo Third Lake.</p>
+          </article>
+          <article class="guide">
+            <span class="mono" style="color:var(--rust)">Protocol C · Evacuation</span>
+            <h3>Direct helicopter dispatch from Kathmandu</h3>
+            <p>We verify your policy's high-altitude helicopter rescue rider before you board in your home country. In an emergency, we call Fishtail Air or Simrik Air directly from our Kathmandu operations desk.</p>
+          </article>
+          <article class="guide">
+            <span class="mono" style="color:var(--rust)">Protocol D · Porter Welfare</span>
+            <h3>20.0 kg porter cap · Full cold-weather kit</h3>
+            <p>Guided by IPPG standards, no porter carries more than 20.0 kg total. Each guest duffel is capped at 15.0 kg and weighed in Thamel. Every porter receives identical lodge meals, down outerwear, and life insurance.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section paper" style="border-top:1px solid rgba(14,21,18,0.18)">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="mono">02 / Interactive Duffel Scale</p>
+          <h2>15.00 kg porter duffel weight calculator</h2>
+        </div>
+        <p style="max-width:62ch;margin:0">Toggle the items going into your Waterproof Kharka Duffel (carried by your porter) versus what stays in your daypack or on your body. Your selection persists automatically.</p>
+
+        <div class="pack-calc">
+          <div class="pack-meter-head">
+            <div>
+              <span class="mono">Current duffel load: </span>
+              <strong id="pack-total" style="font-size:1.6rem;font-family:var(--serif)">0.00 kg</strong>
+              <span class="mono" id="pack-status" style="margin-left:0.5rem;color:var(--rust)">Within 15.00 kg limit</span>
+            </div>
+            <span class="mono">Max allowed: 15.00 kg (15,000 g)</span>
+          </div>
+          <div class="pack-meter-bar" aria-hidden="true">
+            <div class="pack-meter-fill" id="pack-bar" style="width:0%"></div>
+          </div>
+          <div class="pack-items" id="pack-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot-inner">
+      <span class="mono">© 2026 Kharka Trekking Pvt. Ltd. · Reg. 142809/078 · Thamel, Kathmandu</span>
+      <div class="foot-links mono">
+        <a href="/">3D Atlas</a>
+        <a href="/routes.html">Routes &amp; Itineraries</a>
+        <a href="/dispatch.html">Dispatches</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    const ITEMS = [
+      { id: 'bag', name: '−15 °C 800-fill down sleeping bag', grams: 1380, checked: true },
+      { id: 'duffel', name: 'Kharka 90L expedition PVC duffel (empty)', grams: 1450, checked: true },
+      { id: 'down', name: 'Belay-weight baffled down parka', grams: 680, checked: true },
+      { id: 'shell', name: '3-layer Gore-Tex hardshell jacket & pants', grams: 820, checked: true },
+      { id: 'fleece', name: 'Two 200 g/m² merino base layers & grid fleece', grams: 940, checked: true },
+      { id: 'camp-shoes', name: 'Down hut booties & teahouse trousers', grams: 610, checked: true },
+      { id: 'spikes', name: 'Stainless steel microspikes & gaiters', grams: 520, checked: true },
+      { id: 'bottles', name: 'Two 1L wide-mouth Nalgene bottles + SteriPEN', grams: 490, checked: true },
+      { id: 'meds', name: 'Personal blister, Diamox & electrolyte kit', grams: 430, checked: true },
+      { id: 'power', name: '20,000 mAh cold-rated power bank & cables', grams: 540, checked: true },
+      { id: 'camera', name: 'Full-frame mirrorless body + 24–70mm lens', grams: 1650, checked: false },
+      { id: 'tripod', name: 'Carbon travel tripod for starlight exposures', grams: 1280, checked: false },
+    ];
+
+    const KEY = 'kharka-duffel-calc-v1';
+    const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    const state = saved || Object.fromEntries(ITEMS.map(i => [i.id, i.checked]));
+
+    const listEl = document.getElementById('pack-list');
+    const totalEl = document.getElementById('pack-total');
+    const statusEl = document.getElementById('pack-status');
+    const barEl = document.getElementById('pack-bar');
+
+    function update() {
+      const grams = ITEMS.reduce((sum, item) => sum + (state[item.id] ? item.grams : 0), 0);
+      const kg = (grams / 1000).toFixed(2);
+      const pct = Math.min(100, (grams / 15000) * 100);
+      totalEl.textContent = `${kg} kg`;
+      barEl.style.width = `${pct.toFixed(1)}%`;
+      const remain = ((15000 - grams) / 1000).toFixed(2);
+      if (grams > 15000) {
+        barEl.classList.add('warn');
+        statusEl.textContent = `Over limit by ${Math.abs(remain).toFixed(2)} kg`;
+      } else {
+        barEl.classList.remove('warn');
+        statusEl.textContent = `${remain} kg margin remaining`;
+      }
+      localStorage.setItem(KEY, JSON.stringify(state));
+    }
+
+    listEl.innerHTML = ITEMS.map(item => `
+      <label class="pack-item">
+        <span>
+          <input type="checkbox" data-id="${item.id}" ${state[item.id] ? 'checked' : ''} />
+          <span>${item.name}</span>
+        </span>
+        <span class="mono">${(item.grams / 1000).toFixed(2)} kg</span>
+      </label>
+    `).join('');
+
+    listEl.addEventListener('change', (e) => {
+      const id = e.target.dataset.id;
+      if (!id) return;
+      state[id] = e.target.checked;
+      update();
+    });
+
+    update();
+  </script>
+</body>
+</html>
