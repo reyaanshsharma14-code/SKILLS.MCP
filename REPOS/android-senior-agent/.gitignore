@@ -1,0 +1,22 @@
+# IntelliJ / JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# macOS / Windows / Linux
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+*.swp
+*~
+
+# Misc
+*.log
+
+# Claude Code local settings (machine-specific paths)
+.claude/settings.local.json

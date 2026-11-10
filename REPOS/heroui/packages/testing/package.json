@@ -1,0 +1,46 @@
+{
+  "name": "@heroui/testing",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./configs/base": "./configs/base.mjs",
+    "./configs/react": "./configs/react.mjs",
+    "./configs/browser": "./configs/browser.mjs",
+    "./setup/react": "./setup/react.ts",
+    "./setup/browser": "./setup/browser.ts",
+    "./helpers": "./helpers/index.ts",
+    "./browser": "./helpers/browser.ts",
+    "./globals": {
+      "types": "./globals.d.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-aria/test-utils": "1.0.0-rc.1",
+    "@testing-library/dom": "10.4.2",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
+    "@vitest/browser-playwright": "5.0.5",
+    "jsdom": "30.1.3",
+    "playwright": "1.64.1",
+    "vitest-browser-react": "2.3.0"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0",
+    "vitest": "^5.0.5"
+  },
+  "devDependencies": {
+    "@heroui/standard": "workspace:*",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}
