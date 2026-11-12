@@ -1,0 +1,38 @@
+{
+  "name": "flareguard",
+  "version": "2.0.0",
+  "description": "Cloudflare Security Posture Management — full-stack Workers + D1 + KV + R2 + Queues",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run sync-baseline && wrangler dev --local",
+    "deploy": "npm run sync-baseline && wrangler deploy",
+    "sync-baseline": "node scripts/embed-baseline.js",
+    "test": "npm run sync-baseline && node --test test/**/*.test.js",
+    "db:migrate:local": "wrangler d1 migrations apply flareguard --local",
+    "db:migrate:remote": "wrangler d1 migrations apply flareguard",
+    "db:create": "wrangler d1 create flareguard",
+    "kv:create": "wrangler kv namespace create CACHE",
+    "r2:create": "wrangler r2 bucket create flareguard-reports",
+    "queue:create": "wrangler queues create flareguard-scan-queue",
+    "setup": "npm run db:create && npm run kv:create && npm run r2:create && npm run queue:create && npm run db:migrate:remote",
+    "setup:local": "npm run db:migrate:local"
+  },
+  "keywords": [
+    "cloudflare",
+    "security",
+    "audit",
+    "zero-trust"
+  ],
+  "author": "Harshad Kadam",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "js-yaml": "^4.3.2",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260927.1",
+    "wrangler": "^4.142.0"
+  }
+}

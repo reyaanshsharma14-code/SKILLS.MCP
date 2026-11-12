@@ -1,0 +1,306 @@
+# FlareGuard Security Baseline
+# Each check maps to a service evaluator in src/audit/evaluators/.
+
+# ── SSL / TLS ─────────────────────────────────────────────────────────────────
+- id: CF-SSL-001
+  name: SSL/TLS Mode is Full (Strict)
+  category: SSL/TLS
+  service: zone-setting
+  setting: ssl
+  expect: strict
+  severity: HIGH
+  nist_controls: [SC-8, SC-12, SC-13]
+  dashboard_path: ssl-tls
+  remediation: Set SSL/TLS encryption to "Full (Strict)" in SSL/TLS settings.
+
+- id: CF-TLS-001
+  name: Minimum TLS Version is 1.2 or higher
+  category: SSL/TLS
+  service: zone-setting
+  setting: min_tls_version
+  expect_min_tls: "1.2"
+  severity: HIGH
+  nist_controls: [SC-8, SC-13]
+  remediation: Set Minimum TLS Version to 1.2 in SSL/TLS > Edge Certificates.
+
+- id: CF-TLS-002
+  name: TLS 1.3 is enabled
+  category: SSL/TLS
+  service: zone-setting
+  setting: tls_1_3
+  expect: "on"
+  severity: MEDIUM
+  nist_controls: [SC-8, SC-13]
+  remediation: Enable TLS 1.3 in SSL/TLS > Edge Certificates.
+
+- id: CF-HTTPS-001
+  name: Always Use HTTPS is enabled
+  category: SSL/TLS
+  service: zone-setting
+  setting: always_use_https
+  expect: "on"
+  severity: MEDIUM
+  nist_controls: [SC-8]
+  remediation: Enable "Always Use HTTPS" in SSL/TLS > Edge Certificates.
+
+- id: CF-TLS-003
+  name: Opportunistic Encryption is enabled
+  category: SSL/TLS
+  service: zone-setting
+  setting: opportunistic_encryption
+  expect: "on"
+  severity: LOW
+  nist_controls: [SC-8]
+  remediation: Enable Opportunistic Encryption in SSL/TLS > Edge Certificates.
+
+# ── Security Settings ─────────────────────────────────────────────────────────
+- id: CF-SEC-001
+  name: Browser Integrity Check is enabled
+  category: Security
+  service: zone-setting
+  setting: browser_check
+  expect: "on"
+  severity: MEDIUM
+  nist_controls: [SI-3, SI-4]
+  remediation: Enable Browser Integrity Check in Security > Settings.
+
+- id: CF-SEC-002
+  name: Security Level is Medium or higher
+  category: Security
+  service: zone-setting
+  setting: security_level
+  expect_one_of: [medium, high, under_attack]
+  severity: MEDIUM
+  nist_controls: [SC-7, SI-4]
+  remediation: Set Security Level to Medium or higher in Security > Settings.
+
+- id: CF-SEC-003
+  name: Email Obfuscation is enabled
+  category: Security
+  service: zone-setting
+  setting: email_obfuscation
+  expect: "on"
+  severity: LOW
+  nist_controls: [SI-19]
+  remediation: Enable Email Obfuscation in Scrape Shield settings.
+
+# ── WAF ───────────────────────────────────────────────────────────────────────
+- id: CF-WAF-001
+  name: OWASP Core Rule Set is enabled
+  category: WAF
+  service: waf
+  severity: CRITICAL
+  nist_controls: [SI-3, SC-7]
+  dashboard_path: security/waf/managed-rules
+  remediation: Enable the Cloudflare OWASP Core Ruleset in Security > WAF > Managed rules (requires Pro or higher).
+
+- id: CF-WAF-002
+  name: WAF is in block mode (not detect-only)
+  category: WAF
+  service: waf
+  severity: HIGH
+  nist_controls: [SI-3, SC-7]
+  dashboard_path: security/waf/managed-rules
+  remediation: Ensure managed WAF rulesets are not overridden to Log/Simulate. Use Managed Default or Block in Security > WAF > Managed rules.
+
+# ── DNS ───────────────────────────────────────────────────────────────────────
+- id: CF-DNS-001
+  name: DNSSEC is enabled and active
+  category: DNS
+  service: dnssec
+  severity: HIGH
+  nist_controls: [SC-8, SC-20]
+  dashboard_path: dns/settings
+  remediation: Enable DNSSEC in DNS settings and add the DS record to your registrar.
+
+# ── Bot Protection ────────────────────────────────────────────────────────────
+- id: CF-BOT-001
+  name: Bot Fight Mode or Bot Management is enabled
+  category: Bot Protection
+  service: bot
+  severity: HIGH
+  nist_controls: [SC-5, SI-4]
+  remediation: Enable Bot Fight Mode (free) or Bot Management (enterprise) in Security > Bots.
+
+# ── Rate Limiting ─────────────────────────────────────────────────────────────
+- id: CF-RL-001
+  name: At least one rate limiting rule is configured
+  category: Rate Limiting
+  service: rate-limit
+  severity: MEDIUM
+  nist_controls: [SC-5, SI-4]
+  dashboard_path: security/waf/rate-limiting-rules
+  remediation: Configure rate limiting rules in Security > WAF > Rate Limiting Rules.
+
+# ── Zero Trust / Access ───────────────────────────────────────────────────────
+- id: ZT-001
+  name: MFA is enforced on all Access applications
+  category: Zero Trust
+  service: access
+  severity: HIGH
+  nist_controls: [IA-2, AC-3]
+  remediation: Add an MFA requirement to all Access application policies.
+
+- id: ZT-002
+  name: At least one identity provider is configured
+  category: Zero Trust
+  service: access
+  severity: HIGH
+  nist_controls: [IA-2, IA-8]
+  remediation: Configure an identity provider in Zero Trust > Settings > Authentication.
+
+# ── Workers ───────────────────────────────────────────────────────────────────
+- id: WRK-001
+  name: No zombie workers detected (stale, undocumented scripts)
+  category: Workers
+  service: workers
+  severity: HIGH
+  nist_controls: [CM-2, CM-8]
+  dashboard_path: workers
+  remediation: Remove or document workers that have not been updated in 90+ days and have no routes.
+
+- id: WRK-002
+  name: No workers with exposed environment variable names that look like secrets
+  category: Workers
+  service: workers
+  severity: CRITICAL
+  nist_controls: [IA-5, SC-12]
+  dashboard_path: workers
+  remediation: Use Secret bindings instead of plain-text env vars for sensitive values.
+
+# ── CIS: Transport Security (CIS Control 3.10) ───────────────────────────────
+- id: CF-HSTS-001
+  name: HTTP Strict Transport Security (HSTS) is enabled
+  category: Transport Security
+  service: zone-setting
+  setting: security_header
+  expect_nested:
+    path: strict_transport_security.enabled
+    value: "true"
+  severity: HIGH
+  nist_controls: [SC-8, "SC-8(1)"]
+  cis_controls: ["3.10"]
+  dashboard_path: ssl-tls/edge-certificates
+  remediation: Enable HSTS in SSL/TLS > Edge Certificates > HTTP Strict Transport Security (HSTS).
+
+- id: CF-HSTS-002
+  name: HSTS max-age is at least 6 months (15552000 seconds)
+  category: Transport Security
+  service: zone-setting
+  setting: security_header
+  expect_nested:
+    path: strict_transport_security.max_age
+    min: 15552000
+  severity: MEDIUM
+  nist_controls: [SC-8, "SC-8(1)"]
+  cis_controls: ["3.10"]
+  dashboard_path: ssl-tls/edge-certificates
+  remediation: Set HSTS max-age to at least 15552000 seconds (180 days / 6 months) in SSL/TLS > Edge Certificates.
+
+- id: CF-HTTPS-002
+  name: Automatic HTTPS Rewrites is enabled
+  category: Transport Security
+  service: zone-setting
+  setting: automatic_https_rewrites
+  expect: "on"
+  severity: MEDIUM
+  nist_controls: [SC-8]
+  cis_controls: ["3.10"]
+  remediation: Enable Automatic HTTPS Rewrites in SSL/TLS > Edge Certificates to fix mixed content.
+
+- id: CF-ORIGIN-001
+  name: Authenticated Origin Pulls (mTLS) is enabled
+  category: Transport Security
+  service: zone-setting
+  setting: tls_client_auth
+  expect: "on"
+  severity: HIGH
+  nist_controls: [SC-8, SC-17, MA-9]
+  cis_controls: ["3.10"]
+  remediation: Enable Authenticated Origin Pulls in SSL/TLS > Origin Server to verify requests from Cloudflare to your origin.
+
+# ── CIS: Protocol Hygiene (CIS Control 12.6) ─────────────────────────────────
+- id: CF-HTTP-001
+  name: HTTP/2 is enabled
+  category: Protocol Hygiene
+  service: zone-setting
+  setting: http2
+  expect: "on"
+  severity: LOW
+  nist_controls: [SC-8, CM-6]
+  cis_controls: ["12.6"]
+  remediation: Enable HTTP/2 in Speed > Optimization > Protocol Optimization.
+
+- id: CF-HTTP-002
+  name: HTTP/3 (QUIC) is enabled
+  category: Protocol Hygiene
+  service: zone-setting
+  setting: http3
+  expect: "on"
+  severity: LOW
+  nist_controls: [SC-8, CM-6]
+  cis_controls: ["12.6"]
+  remediation: Enable HTTP/3 in Speed > Optimization > Protocol Optimization to reduce connection latency.
+
+- id: CF-IPV6-001
+  name: IPv6 compatibility is enabled
+  category: Protocol Hygiene
+  service: zone-setting
+  setting: ipv6
+  expect: "on"
+  severity: LOW
+  nist_controls: [CM-6, CM-7]
+  cis_controls: ["12.6"]
+  remediation: Enable IPv6 compatibility in Network settings.
+
+# ── CIS: Observability (CIS Controls 6.1, 8.2) ────────────────────────────────
+- id: CF-LOG-001
+  name: At least one active Logpush job is configured
+  category: Observability
+  service: logpush
+  severity: HIGH
+  nist_controls: [AU-2, AU-9, SI-4]
+  cis_controls: ["6.1", "8.2"]
+  dashboard_path: analytics/logs/logpush
+  remediation: Configure a Logpush job in Analytics > Logpush to export HTTP request logs to your SIEM or storage.
+
+- id: CF-PS-001
+  name: Page Shield is enabled
+  category: Observability
+  service: page-shield
+  severity: HIGH
+  nist_controls: [SI-3, SI-4, SA-9]
+  cis_controls: ["8.2"]
+  remediation: Enable Page Shield in Security > Page Shield to monitor client-side scripts for supply chain attacks.
+
+- id: CF-PS-002
+  name: Page Shield policy enforcement is active (not monitor-only)
+  category: Observability
+  service: page-shield
+  severity: MEDIUM
+  nist_controls: [SI-3, SA-9]
+  cis_controls: ["8.2"]
+  remediation: Enable Page Shield policy enforcement in Security > Page Shield > Policies to block unapproved scripts.
+
+# ── CIS: Content Security (CIS Control 9.3) ───────────────────────────────────
+- id: CF-SEC-004
+  name: Hotlink Protection is enabled
+  category: Content Security
+  service: zone-setting
+  setting: hotlink_protection
+  expect: "on"
+  severity: LOW
+  nist_controls: [SI-8, AC-3]
+  cis_controls: ["9.3"]
+  remediation: Enable Hotlink Protection in Scrape Shield to prevent unauthorized embedding of your content.
+
+- id: CF-CERT-001
+  name: Certificate Transparency Monitoring is enabled
+  category: Transport Security
+  service: zone-setting
+  setting: certificate_transparency_monitoring
+  expect: "on"
+  severity: MEDIUM
+  nist_controls: [SC-17, SI-4]
+  cis_controls: ["3.10"]
+  remediation: Enable Certificate Transparency Monitoring in SSL/TLS > Edge Certificates to receive alerts for unauthorized certificates.
